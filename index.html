@@ -6,9 +6,11 @@
     <script type="module">
       import { h, text, app } from "https://unpkg.com/hyperapp"
 
+      const createTodo = (text) =>  ({ text, completed: false})
+
       const AddTodo = (state) => ({
         ...state,
-        todos: state.todos.concat(state.value),
+        todos: state.todos.concat(createTodo(state.value)),
       })
 
       const NewValue = (state, event) => ({
@@ -22,10 +24,16 @@
           h("main", {}, [
             h("input", { type: "text", oninput: NewValue, value }),
             h("button", { onclick: AddTodo }, text("Add")),
-            h("ul", {},
-              todos.map((todo) => h("li", {}, text(todo)))
-            ),
-          ]),
+            h("ul", {style: {"list-style": "none"}},
+              todos.map((todo) =>
+                h("li",{}, [
+                    h("label", {}, [
+                        h("input", {type: "checkbox", checked: todo.completed}),
+                        h("span", {}, text(todo.text))
+                    ])
+                ])))
+              ]
+          ),
         node: document.getElementById("app"),
       })
     </script>
