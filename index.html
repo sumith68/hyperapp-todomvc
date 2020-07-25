@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
     <script type="module">
-      import { h, text, app } from "https://unpkg.com/hyperapp"
+      import { h, text, app } from "https://unpkg.com/hyperapp";
 
-      const createTodo = (text) =>  ({ text, completed: false})
+      const createTodo = (text) => ({ text, completed: false });
+
+      const updateTodo = (state, id) => {
+        let todos = state.todos.map((todo, i) => {
+          if (i === id) {
+            console.log("Updated State: ", {
+              ...todo,
+              completed: !todo.completed,
+            });
+            return { ...todo, completed: !todo.completed };
+          } else {
+            console.log("Skipping todo id: ", id);
+            return todo;
+          }
+        });
+
+        return { ...state, todos };
+      };
 
       const AddTodo = (state) => ({
         ...state,
         todos: state.todos.concat(createTodo(state.value)),
-      })
+      });
 
       const NewValue = (state, event) => ({
         ...state,
         value: event.target.value,
-      })
+      });
 
       app({
         init: { todos: [], value: "" },
@@ -24,18 +41,26 @@
           h("main", {}, [
             h("input", { type: "text", oninput: NewValue, value }),
             h("button", { onclick: AddTodo }, text("Add")),
-            h("ul", {style: {"list-style": "none"}},
-              todos.map((todo) =>
-                h("li",{}, [
-                    h("label", {}, [
-                        h("input", {type: "checkbox", checked: todo.completed}),
-                        h("span", {}, text(todo.text))
-                    ])
-                ])))
-              ]
-          ),
+            h(
+              "ul",
+              { style: { "list-style": "none" } },
+              todos.map((todo, i) =>
+                h("li", {}, [
+                  h("label", {}, [
+                    h("input", {
+                      id: i,
+                      type: "checkbox",
+                      onclick: [updateTodo, i],
+                      checked: todo.completed,
+                    }),
+                    h("span", {}, text(todo.text)),
+                  ]),
+                ])
+              )
+            ),
+          ]),
         node: document.getElementById("app"),
-      })
+      });
     </script>
   </head>
   <body>
