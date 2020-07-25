@@ -10,4 +10,8 @@ npm i
 
 ## TODO
 
-- build a Todomvc app with hyperapp
+[ ] build a Todomvc app with hyperapp
+
+[x] Complete a todo
+
+[ ] Delete a todo
