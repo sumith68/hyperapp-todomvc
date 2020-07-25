@@ -15,3 +15,5 @@ npm i
 [x] Complete a todo
 
 [x] Delete a todo
+
+[ ] Integrate Tailwind CSS
