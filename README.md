@@ -16,4 +16,4 @@ npm i
 
 [x] Delete a todo
 
-[ ] Integrate Tailwind CSS
+[x] Integrate Tailwind CSS
