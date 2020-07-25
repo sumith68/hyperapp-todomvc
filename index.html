@@ -25,6 +25,13 @@
         return { ...state, todos };
       };
 
+      const deleteTodo = (state, id) => {
+        var newTodos = state.todos;
+        newTodos.splice(id, 1);
+        console.log("Deleted Todo: ", id);
+        return { ...state, newTodos };
+      };
+
       const AddTodo = (state) => ({
         ...state,
         value: "",
@@ -56,6 +63,7 @@
                     }),
                     h("span", {}, text(todo.text)),
                   ]),
+                  h("button", { onclick: [deleteTodo, i] }, text("Delete")),
                 ])
               )
             ),

@@ -14,4 +14,4 @@ npm i
 
 [x] Complete a todo
 
-[ ] Delete a todo
+[x] Delete a todo
