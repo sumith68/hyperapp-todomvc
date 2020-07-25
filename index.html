@@ -27,6 +27,7 @@
 
       const AddTodo = (state) => ({
         ...state,
+        value: "",
         todos: state.todos.concat(createTodo(state.value)),
       });
 
